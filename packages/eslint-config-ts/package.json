@@ -1,0 +1,16 @@
+{
+  "name": "@cany748/eslint-config-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "typescript": ">=5.0"
+  },
+  "dependencies": {
+    "@cany748/eslint-config": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3"
+  }
+}

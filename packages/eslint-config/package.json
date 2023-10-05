@@ -1,0 +1,26 @@
+{
+  "name": "@cany748/eslint-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsonc": "^2.9.0",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-prettier": "5.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "eslint-plugin-yml": "^1.9.0",
+    "jsonc-eslint-parser": "^2.3.0",
+    "prettier": "^3.0.3",
+    "yaml-eslint-parser": "^1.2.2"
+  }
+}

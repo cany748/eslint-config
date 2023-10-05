@@ -1,0 +1,13 @@
+{
+  "name": "@cany748/eslint-config-vue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@cany748/eslint-config": "workspace:*",
+    "@cany748/eslint-config-ts": "workspace:*",
+    "eslint-plugin-vue": "^9.17.0"
+  }
+}
