@@ -8,6 +8,6 @@
   "dependencies": {
     "@cany748/eslint-config": "workspace:*",
     "@cany748/eslint-config-ts": "workspace:*",
-    "eslint-plugin-vue": "^9.17.0"
+    "eslint-plugin-vue": "^9.24.0"
   }
 }
