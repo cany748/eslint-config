@@ -1,6 +1,6 @@
 {
   "name": "@cany748/eslint-config-monorepo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "packageManager": "pnpm@8.15.5",
   "scripts": {
