@@ -1,38 +1,46 @@
 # @cany748/eslint-config
 
-ESLint config for JavaScript, TypeScript, Vue 3 / Nuxt 3.
+ESLint config for JavaScript, TypeScript, Vue 2/3.
 
-Based on [Anthony Fu](https://github.com/antfu/eslint-config) and [Kevin Deng](https://github.com/sxzz/eslint-config-legacy) configs.
+Based on [Anthony Fu](https://github.com/antfu/eslint-config) configs.
 
 ## Usage
 
 ### Install
 
 ```bash
-pnpm add -D eslint @cany748/eslint-config # JavaScript only
-# Or yarn add -D / npm install -D
-pnpm add -D eslint @cany748/eslint-config-ts # JavaScript and TypeScript
-pnpm add -D eslint @cany748/eslint-config-vue # JavaScript, TypeScript, Vue 3 / Nuxt 3
+pnpm add -D @cany748/eslint-config
+# Or yarn add -D / npm install -D / bun add -D
 ```
 
 ### Config
 
-```jsonc
-// `.eslintrc` or `eslintConfig` on `package.json`
+```ts
+// eslint.config.ts
 {
-  "extends": "@cany748"
-  // "extends": "@cany748/eslint-config-ts"
-  // "extends": "@cany748/eslint-config-vue"
+  import { factoryConfig } from "@cany748/eslint-config";
+
+  export default factoryConfig({
+    // Type of the project. 'lib' for libraries, the default is 'app'
+    type: "lib",
+
+    // TypeScript, Vue and UnoCSS are autodetected, you can also explicitly enable them:
+    typescript: true,
+    vue: true,
+    unocss: true,
+
+    // to enable type-aware rules use
+    typescript: { tsconfigPath: "./tsconfig.json", filesTypeAware: ["**/*.{ts,tsx,vue}"] },
+  });
 }
 ```
-```jsonc
+
+```json
 // `.prettierrc` or `prettier` on `package.json`
 {
   "printWidth": 140
 }
 ```
-
-> You don't need `.eslintignore` normally as it has been provided by the preset.
 
 ### Add script for package.json
 
@@ -68,6 +76,10 @@ and then
 pnpm add -D lint-staged simple-git-hooks
 ```
 
-## License
+### View what rules are enabled
 
-MIT License © 2021-PRESENT
+Go to your project root that contains `eslint.config.*` and run:
+
+```bash
+npx @eslint/config-inspector
+```
