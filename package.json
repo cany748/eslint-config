@@ -1,7 +1,7 @@
 {
   "name": "@cany748/eslint-config",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "packageManager": "pnpm@9.6.0",
   "exports": {
     ".": {
