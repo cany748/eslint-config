@@ -38,7 +38,7 @@ pnpm add -D @cany748/eslint-config
 ```jsonc
 // `.prettierrc` or `prettier` on `package.json`
 {
-  "printWidth": 140
+  "printWidth": 140,
 }
 ```
 

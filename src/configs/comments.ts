@@ -1,16 +1,16 @@
-import pluginComments from "eslint-plugin-eslint-comments";
+import pluginComments from "@eslint-community/eslint-plugin-eslint-comments";
 import type { TypedFlatConfigItem } from "../types";
 
 export function comments(): TypedFlatConfigItem[] {
   return [
     {
-      name: "eslint-comments",
+      name: "@eslint-community/eslint-comments",
       plugins: {
-        "eslint-comments": pluginComments,
+        "@eslint-community/eslint-comments": pluginComments,
       },
       rules: {
         ...pluginComments.configs.recommended.rules,
-        "eslint-comments/disable-enable-pair": "off",
+        "@eslint-community/eslint-comments/disable-enable-pair": "off",
       },
     },
   ];

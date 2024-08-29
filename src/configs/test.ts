@@ -9,7 +9,7 @@ export async function test(options: OptionsFiles & OptionsIsInEditor & OptionsOv
   const { files = GLOB_TESTS, isInEditor = false, overrides = {} } = options;
 
   const [pluginVitest, pluginNoOnlyTests] = await Promise.all([
-    interopDefault(import("eslint-plugin-vitest")),
+    interopDefault(import("@vitest/eslint-plugin")),
     interopDefault(import("eslint-plugin-no-only-tests")),
   ] as const);
 
