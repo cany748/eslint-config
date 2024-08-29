@@ -18,7 +18,7 @@ export async function typescript(
     OptionsTypeScriptParserOptions &
     OptionsProjectType = {},
 ): Promise<TypedFlatConfigItem[]> {
-  const { componentExts = [], overrides = {}, parserOptions = {}, type = "app" } = options;
+  const { componentExts = [], overrides = {}, overridesTypeAware = {}, parserOptions = {}, type = "app" } = options;
 
   const files = options.files ?? [GLOB_TS, GLOB_TSX, ...componentExts.map((ext) => `**/*.${ext}`)];
 
@@ -66,9 +66,7 @@ export async function typescript(
       },
     },
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
-    ...(isTypeAware
-      ? [makeParser(true, filesTypeAware, ignoresTypeAware), makeParser(false, files, filesTypeAware)]
-      : [makeParser(false, files)]),
+    ...(isTypeAware ? [makeParser(false, files), makeParser(true, filesTypeAware, ignoresTypeAware)] : [makeParser(false, files)]),
     {
       files,
       name: "typescript/rules",
@@ -150,7 +148,7 @@ export async function typescript(
                     "@typescript-eslint/only-throw-error": "error",
                   } satisfies TypedFlatConfigItem["rules"])
                 : {}),
-              ...overrides,
+              ...overridesTypeAware,
             },
           },
         ]
