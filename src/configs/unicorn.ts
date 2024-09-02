@@ -13,6 +13,7 @@ export function unicorn(): TypedFlatConfigItem[] {
 
         "unicorn/consistent-function-scoping": "off",
         "unicorn/filename-case": "off",
+        "unicorn/import-style": "off",
         "unicorn/no-array-callback-reference": "off",
         "unicorn/no-null": "off",
         "unicorn/prefer-string-replace-all": "off",
