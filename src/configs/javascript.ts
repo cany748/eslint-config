@@ -69,7 +69,6 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
         "no-dupe-else-if": "error",
         "no-dupe-keys": "error",
         "no-duplicate-case": "error",
-        "no-duplicate-imports": "error",
         "no-empty-character-class": "error",
         "no-empty-pattern": "error",
         "no-empty-static-block": "error",
