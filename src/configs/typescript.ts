@@ -100,7 +100,7 @@ export async function typescript(
         "@typescript-eslint/no-invalid-this": "error",
 
         "no-redeclare": "off",
-        "@typescript-eslint/no-redeclare": "error",
+        "@typescript-eslint/no-redeclare": ["error", { builtinGlobals: false }],
 
         "no-unused-expressions": "off",
         "@typescript-eslint/no-unused-expressions": ["error", { allowShortCircuit: true, allowTernary: true, allowTaggedTemplates: true }],
@@ -153,30 +153,5 @@ export async function typescript(
           },
         ]
       : []),
-    {
-      files: ["**/*.d.?([cm])ts"],
-      name: "typescript/disables/dts",
-      rules: {
-        "eslint-comments/no-unlimited-disable": "off",
-        "import/no-duplicates": "off",
-        "no-restricted-syntax": "off",
-        "unused-imports/no-unused-vars": "off",
-      },
-    },
-    {
-      files: ["**/*.{test,spec}.ts?(x)"],
-      name: "typescript/disables/test",
-      rules: {
-        "no-unused-expressions": "off",
-      },
-    },
-    {
-      files: ["**/*.js", "**/*.cjs"],
-      name: "typescript/disables/cjs",
-      rules: {
-        "@typescript-eslint/no-require-imports": "off",
-        "@typescript-eslint/no-var-requires": "off",
-      },
-    },
   ];
 }

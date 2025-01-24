@@ -17,6 +17,7 @@ export function unicorn(): TypedFlatConfigItem[] {
         "unicorn/no-array-callback-reference": "off",
         "unicorn/no-null": "off",
         "unicorn/prefer-string-replace-all": "off",
+        "unicorn/prefer-structured-clone": "off",
         "unicorn/prefer-top-level-await": "off",
         "unicorn/prevent-abbreviations": "off",
       },

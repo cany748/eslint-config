@@ -10,6 +10,7 @@ export function regexp(options: OptionsOverrides = {}): TypedFlatConfigItem[] {
       name: "regexp",
       rules: {
         ...config.rules,
+        "regexp/no-obscure-range": "off",
         ...options.overrides,
       },
     },

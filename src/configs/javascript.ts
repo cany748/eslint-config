@@ -1,6 +1,5 @@
 import globals from "globals";
 import pluginUnusedImports from "eslint-plugin-unused-imports";
-import { GLOB_SRC, GLOB_SRC_EXT } from "../globs";
 import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from "../types";
 
 export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): TypedFlatConfigItem[] {
@@ -176,13 +175,7 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
             allowUnboundThis: true,
           },
         ],
-        "prefer-const": [
-          "error",
-          {
-            destructuring: "all",
-            ignoreReadBeforeAssign: true,
-          },
-        ],
+        "prefer-const": isInEditor ? "warn" : ["error", { destructuring: "all", ignoreReadBeforeAssign: true }],
         "prefer-exponentiation-operator": "error",
         "prefer-promise-reject-errors": "error",
         "prefer-regex-literals": ["error", { disallowRedundantWrapping: true }],
@@ -203,7 +196,7 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
         ],
         "symbol-description": "error",
         "unicode-bom": ["error", "never"],
-        "unused-imports/no-unused-imports": isInEditor ? "off" : "error",
+        "unused-imports/no-unused-imports": isInEditor ? "warn" : "error",
         "unused-imports/no-unused-vars": [
           "error",
           {
@@ -220,20 +213,6 @@ export function javascript(options: OptionsIsInEditor & OptionsOverrides = {}): 
         yoda: ["error", "never"],
 
         ...overrides,
-      },
-    },
-    {
-      files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: "javascript/disables/cli",
-      rules: {
-        "no-console": "off",
-      },
-    },
-    {
-      files: ["**/*.{test,spec}.js?(x)"],
-      name: "javascript/disables/test",
-      rules: {
-        "no-unused-expressions": "off",
       },
     },
   ];

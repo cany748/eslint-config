@@ -38,9 +38,16 @@ export async function interopDefault<T>(m: Awaitable<T>): Promise<T extends { de
   return (resolved as any).default || resolved;
 }
 
-export function isInEditorEnv(): boolean {
+export function isInGitHooksOrLintStaged(): boolean {
   return !!(
-    (process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM || process.env.NVIM) &&
-    !process.env.CI
+    // eslint-disable-next-line no-constant-binary-expression
+    (false || process.env.GIT_PARAMS || process.env.VSCODE_GIT_COMMAND || process.env.npm_lifecycle_script?.startsWith("lint-staged"))
   );
+}
+
+export function isInEditorEnv(): boolean {
+  if (process.env.CI) return false;
+  if (isInGitHooksOrLintStaged()) return false;
+  // eslint-disable-next-line no-constant-binary-expression
+  return !!(false || process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM || process.env.NVIM);
 }

@@ -4,6 +4,7 @@ import type { Linter } from "eslint";
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from "./types";
 import {
   comments,
+  disables,
   formatters,
   ignores,
   imports,
@@ -21,17 +22,15 @@ import {
 } from "./configs";
 import { interopDefault, isInEditorEnv } from "./utils";
 
-const flatConfigProps: (keyof TypedFlatConfigItem)[] = [
+const flatConfigProps = [
   "name",
-  "files",
-  "ignores",
   "languageOptions",
   "linterOptions",
   "processor",
   "plugins",
   "rules",
   "settings",
-];
+] satisfies (keyof TypedFlatConfigItem)[];
 
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
@@ -46,14 +45,13 @@ const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
  *  The merged ESLint configurations.
  */
 export const factoryConfig = function (
-  options: OptionsConfig & TypedFlatConfigItem = {},
+  options: OptionsConfig & Omit<TypedFlatConfigItem, "files"> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
     componentExts = [],
     formatters: enableFormatters = true,
     gitignore: enableGitignore = true,
-    isInEditor = isInEditorEnv(),
     jsonc: enableJSONC = true,
     regexp: enableRegexp = true,
     test: enableTest = true,
@@ -61,6 +59,13 @@ export const factoryConfig = function (
     unocss: enableUnoCSS = isPackageExists("unocss"),
     vue: enableVue = VuePackages.some((i) => isPackageExists(i)),
   } = options;
+
+  let isInEditor = options.isInEditor;
+  if (isInEditor == null) {
+    isInEditor = isInEditorEnv();
+    // eslint-disable-next-line no-console
+    if (isInEditor) console.log("[@cany748/eslint-config] Detected running in editor, some rules are disabled.");
+  }
 
   const configs: Awaitable<TypedFlatConfigItem[]>[] = [];
 
@@ -75,7 +80,7 @@ export const factoryConfig = function (
   // Base configs
   configs.push(
     comments(),
-    ignores(),
+    ignores(options.ignores),
     imports(),
     javascript({
       isInEditor,
@@ -131,6 +136,14 @@ export const factoryConfig = function (
 
   if (enableFormatters) {
     configs.push(formatters(enableFormatters));
+  }
+
+  configs.push(disables());
+
+  if ("files" in options) {
+    throw new Error(
+      '[@cany748/eslint-config] The first argument should not contain the "files" property as the options are supposed to be global. Place it in the second or later config instead.',
+    );
   }
 
   // User can optionally pass a flat config item to the first argument

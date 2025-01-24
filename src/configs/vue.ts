@@ -93,6 +93,8 @@ export async function vue(
 
         "vue/component-tags-order": "off",
 
+        "@typescript-eslint/explicit-function-return-type": "off",
+
         ...overrides,
       },
     },

@@ -14,9 +14,7 @@
     "less",
     "graphql",
     "json",
+    "json5",
     "jsonc"
-  ],
-  "eslint.options": {
-    "flags": ["unstable_ts_config"]
-  }
+  ]
 }
