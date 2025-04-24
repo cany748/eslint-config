@@ -10,7 +10,8 @@ export async function vue(
   const [pluginVue, parserVue] = await Promise.all([
     interopDefault(import("eslint-plugin-vue")),
     interopDefault(import("vue-eslint-parser")),
-  ] as const);
+  ] as any);
+  // TODO: ] as const);
 
   return [
     {
@@ -52,14 +53,14 @@ export async function vue(
 
         ...(vueVersion === 2
           ? {
+              ...pluginVue.configs["vue2-essential"].rules,
+              ...pluginVue.configs["vue2-strongly-recommended"].rules,
+              ...pluginVue.configs["vue2-recommended"].rules,
+            }
+          : {
               ...pluginVue.configs.essential.rules,
               ...pluginVue.configs["strongly-recommended"].rules,
               ...pluginVue.configs.recommended.rules,
-            }
-          : {
-              ...pluginVue.configs["vue3-essential"].rules,
-              ...pluginVue.configs["vue3-strongly-recommended"].rules,
-              ...pluginVue.configs["vue3-recommended"].rules,
             }),
 
         "vue/component-name-in-template-casing": ["error", "PascalCase"],
