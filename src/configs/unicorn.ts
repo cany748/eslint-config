@@ -9,7 +9,7 @@ export function unicorn(): TypedFlatConfigItem[] {
         unicorn: pluginUnicorn,
       },
       rules: {
-        ...pluginUnicorn.configs["flat/recommended"].rules,
+        ...pluginUnicorn.configs.recommended.rules,
 
         "unicorn/consistent-function-scoping": "off",
         "unicorn/filename-case": "off",
