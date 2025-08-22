@@ -114,7 +114,7 @@ export function sortPackageJson(): TypedFlatConfigItem[] {
 export function sortTsconfig(): TypedFlatConfigItem[] {
   return [
     {
-      files: ["**/tsconfig.json", "**/tsconfig.*.json"],
+      files: ["**/[jt]sconfig.json", "**/[jt]sconfig.*.json"],
       name: "sort/tsconfig-json",
       rules: {
         "jsonc/sort-keys": [

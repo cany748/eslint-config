@@ -20,6 +20,7 @@ export function unicorn(): TypedFlatConfigItem[] {
         "unicorn/prefer-structured-clone": "off",
         "unicorn/prefer-top-level-await": "off",
         "unicorn/prevent-abbreviations": "off",
+        "unicorn/prefer-global-this": "off",
       },
     },
   ];
