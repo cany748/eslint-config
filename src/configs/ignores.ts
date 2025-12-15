@@ -1,10 +1,15 @@
 import { GLOB_EXCLUDE } from "../globs";
 import type { TypedFlatConfigItem } from "../types";
 
-export function ignores(userIgnores: string[] = []): TypedFlatConfigItem[] {
+export function ignores(userIgnores: string[] | ((originals: string[]) => string[]) = []): TypedFlatConfigItem[] {
+  let ignores = [...GLOB_EXCLUDE];
+
+  ignores = typeof userIgnores === "function" ? userIgnores(ignores) : [...ignores, ...userIgnores];
+
   return [
     {
-      ignores: [...GLOB_EXCLUDE, ...userIgnores],
+      ignores,
+      name: "ignores",
     },
   ];
 }

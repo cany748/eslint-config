@@ -45,13 +45,14 @@ const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
  *  The merged ESLint configurations.
  */
 export const factoryConfig = function (
-  options: OptionsConfig & Omit<TypedFlatConfigItem, "files"> = {},
+  options: OptionsConfig & Omit<TypedFlatConfigItem, "files" | "ignores"> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
     componentExts = [],
     formatters: enableFormatters = true,
     gitignore: enableGitignore = true,
+    ignores: userIgnores = [],
     jsonc: enableJSONC = true,
     regexp: enableRegexp = true,
     test: enableTest = true,
@@ -80,7 +81,7 @@ export const factoryConfig = function (
   // Base configs
   configs.push(
     comments(),
-    ignores(options.ignores),
+    ignores(userIgnores),
     imports(),
     javascript({
       isInEditor,

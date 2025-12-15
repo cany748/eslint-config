@@ -48,6 +48,13 @@ export function isInGitHooksOrLintStaged(): boolean {
 export function isInEditorEnv(): boolean {
   if (process.env.CI) return false;
   if (isInGitHooksOrLintStaged()) return false;
-  // eslint-disable-next-line no-constant-binary-expression
-  return !!(false || process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM || process.env.NVIM);
+
+  return !!(
+    false || // eslint-disable-line no-constant-binary-expression
+    process.env.VSCODE_PID ||
+    process.env.VSCODE_CWD ||
+    process.env.JETBRAINS_IDE ||
+    process.env.VIM ||
+    process.env.NVIM
+  );
 }
