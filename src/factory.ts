@@ -5,6 +5,7 @@ import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from 
 import {
   comments,
   disables,
+  e18e,
   formatters,
   ignores,
   imports,
@@ -53,7 +54,10 @@ export const factoryConfig = function (
     formatters: enableFormatters = true,
     gitignore: enableGitignore = true,
     ignores: userIgnores = [],
+    imports: enableImports = true,
     jsonc: enableJSONC = true,
+    node: enableNode = true,
+    e18e: enableE18e = true,
     regexp: enableRegexp = true,
     test: enableTest = true,
     typescript: enableTypeScript = isPackageExists("typescript"),
@@ -82,17 +86,32 @@ export const factoryConfig = function (
   configs.push(
     comments(),
     ignores(userIgnores),
-    imports(),
     javascript({
       isInEditor,
       overrides: options.javascript?.overrides,
     }),
-    node(),
     unicorn(),
   );
 
+  if (enableImports) {
+    configs.push(imports());
+  }
+
+  if (enableNode) {
+    configs.push(node());
+  }
+
   if (enableVue) {
     componentExts.push("vue");
+  }
+
+  if (enableE18e) {
+    configs.push(
+      e18e({
+        isInEditor,
+        ...(enableE18e === true ? {} : enableE18e),
+      }),
+    );
   }
 
   if (enableTypeScript) {
