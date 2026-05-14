@@ -1,7 +1,7 @@
 {
   "name": "@cany748/eslint-config",
   "type": "module",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "packageManager": "pnpm@11.1.1",
   "exports": {
     ".": "./dist/index.mjs"
