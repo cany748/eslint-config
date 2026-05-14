@@ -1,3 +1,7 @@
-onlyBuiltDependencies:
-  - simple-git-hooks
-  - unrs-resolver
+shamefullyHoist: true
+shellEmulator: true
+strictPeerDependencies: false
+
+allowBuilds:
+  simple-git-hooks: true
+  unrs-resolver: true

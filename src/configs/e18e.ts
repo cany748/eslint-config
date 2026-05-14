@@ -24,6 +24,14 @@ export function e18e(options: OptionsIsInEditor & OptionsProjectType & OptionsE1
         ...(modernization ? { ...configs.modernization.rules } : {}),
         ...(moduleReplacements ? { ...configs.moduleReplacements!.rules } : {}),
         ...(performanceImprovements ? { ...configs.performanceImprovements!.rules } : {}),
+
+        // e18e/prefer-static-regex is too strict for non-lib projects, and most of the time the performance improvement is negligible, so we'll disable it by default for app projects
+        ...(type === "lib"
+          ? {}
+          : {
+              "e18e/prefer-static-regex": "off",
+            }),
+
         ...overrides,
       },
     },

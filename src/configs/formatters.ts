@@ -34,7 +34,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
         },
         name: "formatter/css",
         rules: {
-          "prettier/prettier": ["error", { parser: "css" }],
+          "prettier/prettier": ["warn", { parser: "css" }],
         },
       },
       {
@@ -44,7 +44,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
         },
         name: "formatter/scss",
         rules: {
-          "prettier/prettier": ["error", { parser: "scss" }],
+          "prettier/prettier": ["warn", { parser: "scss" }],
         },
       },
       {
@@ -54,7 +54,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
         },
         name: "formatter/less",
         rules: {
-          "prettier/prettier": ["error", { parser: "less" }],
+          "prettier/prettier": ["warn", { parser: "less" }],
         },
       },
     );
@@ -68,7 +68,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
       },
       name: "formatter/graphql",
       rules: {
-        "prettier/prettier": ["error", { parser: "graphql" }],
+        "prettier/prettier": ["warn", { parser: "graphql" }],
       },
     });
   }
@@ -81,7 +81,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
       },
       name: "formatter/html",
       rules: {
-        "prettier/prettier": ["error", { parser: "html" }],
+        "prettier/prettier": ["warn", { parser: "html" }],
       },
     });
   }
@@ -94,7 +94,7 @@ export function formatters(options: OptionsFormatters | true = true): TypedFlatC
       },
       name: "formatter/markdown",
       rules: {
-        "prettier/prettier": ["error", { parser: "markdown" }],
+        "prettier/prettier": ["warn", { parser: "markdown" }],
       },
     });
   }

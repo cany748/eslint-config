@@ -2,7 +2,7 @@
   "name": "@cany748/eslint-config",
   "type": "module",
   "version": "5.0.0",
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.1.1",
   "exports": {
     ".": "./dist/index.mjs"
   },
@@ -39,37 +39,37 @@
     }
   },
   "dependencies": {
-    "@e18e/eslint-plugin": "^0.3.0",
+    "@e18e/eslint-plugin": "^0.5.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
-    "@vitest/eslint-plugin": "^1.6.14",
-    "eslint": "^10.2.0",
+    "@vitest/eslint-plugin": "^1.6.17",
+    "eslint": "^10.3.0",
     "eslint-config-flat-gitignore": "^2.3.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-flat-config-utils": "^3.1.0",
+    "eslint-flat-config-utils": "^3.2.0",
     "eslint-plugin-import-x": "^4.16.2",
     "eslint-plugin-jsonc": "^3.1.2",
-    "eslint-plugin-n": "^17.24.0",
-    "eslint-plugin-no-only-tests": "^3.3.0",
+    "eslint-plugin-n": "^18.0.1",
+    "eslint-plugin-no-only-tests": "^3.4.0",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-regexp": "^3.1.0",
     "eslint-plugin-unicorn": "^64.0.0",
     "eslint-plugin-unused-imports": "^4.4.1",
-    "globals": "^17.4.0",
-    "jiti": "^2.6.1",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "local-pkg": "^1.1.2",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.3"
   },
   "devDependencies": {
-    "@types/node": "^25.5.2",
-    "@unocss/eslint-plugin": "^66.6.7",
-    "bumpp": "^11.0.1",
-    "eslint-plugin-vue": "^10.8.0",
+    "@types/node": "^25.7.0",
+    "@unocss/eslint-plugin": "^66.6.8",
+    "bumpp": "^11.1.0",
+    "eslint-plugin-vue": "^10.9.1",
     "eslint-typegen": "^2.3.1",
-    "lint-staged": "^16.4.0",
+    "lint-staged": "^17.0.4",
     "simple-git-hooks": "^2.13.1",
-    "tsdown": "^0.21.7",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.0"
+    "tsdown": "^0.22.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
