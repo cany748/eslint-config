@@ -8,39 +8,39 @@ export type Awaitable<T> = T | Promise<T>;
 export type Rules = Record<string, Linter.RuleEntry<any> | undefined> & RuleOptions;
 
 /**
- * An updated version of ESLint's `Linter.Config`, which provides autocompletion
- * for `rules` and relaxes type limitations for `plugins` and `rules`, because
- * many plugins still lack proper type definitions.
- */
+An updated version of ESLint's `Linter.Config`, which provides autocompletion
+for `rules` and relaxes type limitations for `plugins` and `rules`, because
+many plugins still lack proper type definitions.
+*/
 export type TypedFlatConfigItem = Omit<Linter.Config, "plugins" | "rules"> & {
   /**
-   * An object containing a name-value mapping of plugin names to plugin objects.
-   * When `files` is specified, these plugins are only available to the matching files.
-   *
-   * @see [Using plugins in your configuration](https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new#using-plugins-in-your-configuration)
-   */
+  An object containing a name-value mapping of plugin names to plugin objects.
+  When `files` is specified, these plugins are only available to the matching files.
+
+  @see [Using plugins in your configuration](https://eslint.org/docs/latest/user-guide/configuring/configuration-files-new#using-plugins-in-your-configuration)
+  */
   plugins?: Record<string, any>;
 
   /**
-   * An object containing the configured rules. When `files` or `ignores` are
-   * specified, these rule configurations are only available to the matching files.
-   */
+  An object containing the configured rules. When `files` or `ignores` are
+  specified, these rule configurations are only available to the matching files.
+  */
   rules?: Rules;
 };
 
 export interface OptionsFiles {
   /**
-   * Override the `files` option to provide custom globs.
-   */
+  Override the `files` option to provide custom globs.
+  */
   files?: string[];
 }
 
 export interface OptionsVue extends OptionsOverrides {
   /**
-   * Vue version. Apply different rules set from `eslint-plugin-vue`.
-   *
-   * @default 3
-   */
+  Vue version. Apply different rules set from `eslint-plugin-vue`.
+
+  @default 3
+  */
   vueVersion?: 2 | 3;
 }
 
@@ -48,88 +48,124 @@ export type OptionsTypescript = (OptionsTypeScriptWithTypes & OptionsOverrides) 
 
 export interface OptionsFormatters {
   /**
-   * Enable formatting support for CSS, Less, Sass, and SCSS.
-   */
+  Enable formatting support for CSS, Less, Sass, and SCSS.
+  */
   css?: boolean;
 
   /**
-   * Enable formatting support for HTML.
-   */
+  Enable formatting support for HTML.
+  */
   html?: boolean;
 
   /**
-   * Enable formatting support for Markdown.
-   */
+  Enable formatting support for Markdown.
+  */
   markdown?: boolean;
 
   /**
-   * Enable formatting support for GraphQL.
-   */
+  Enable formatting support for GraphQL.
+  */
   graphql?: boolean;
 }
 
 export interface OptionsComponentExts {
   /**
-   * Additional extensions for components.
-   *
-   * @example ['vue']
-   * @default []
-   */
+  Additional extensions for components.
+
+  @example ['vue']
+  @default []
+  */
   componentExts?: string[];
 }
 
 export interface OptionsE18e extends OptionsOverrides {
   /**
-   * Include modernization rules
-   *
-   * @see https://github.com/e18e/eslint-plugin#modernization
-   * @default true
-   */
+  Include modernization rules
+
+  @see https://github.com/e18e/eslint-plugin#modernization
+  @default true
+  */
   modernization?: boolean;
   /**
-   * Include module replacements rules
-   *
-   * @see https://github.com/e18e/eslint-plugin#module-replacements
-   * @default options.isInEditor
-   */
+  Include module replacements rules
+
+  @see https://github.com/e18e/eslint-plugin#module-replacements
+  @default options.isInEditor
+  */
   moduleReplacements?: boolean;
   /**
-   * Include performance improvements rules
-   *
-   * @see https://github.com/e18e/eslint-plugin#performance-improvements
-   * @default true
-   */
+  Include performance improvements rules
+
+  @see https://github.com/e18e/eslint-plugin#performance-improvements
+  @default true
+  */
   performanceImprovements?: boolean;
+}
+
+export interface OptionsSlop {
+  cwd?: string;
+  inspection?:
+    | "full"
+    | "uncommitted"
+    | "recent-changes"
+    | {
+        mode: "full" | "uncommitted";
+      }
+    | {
+        mode: "recent-changes";
+        tracebackCommits?: number;
+      };
+}
+
+export interface OptionsAntislop extends OptionsOverrides {
+  /**
+  Enable rules from `eslint-plugin-slop`.
+
+  Passing an object enables the rules and forwards it to the plugin
+  via `settings.slop`, controlling the working directory and inspection mode.
+
+  @see https://github.com/antfu/eslint-plugin-slop
+  @default true
+  */
+  slop?: boolean | OptionsSlop;
+
+  /**
+  Enable the curated subset of rules from `eslint-plugin-sonarjs`.
+
+  @see https://github.com/SonarSource/SonarJS
+  @default true
+  */
+  sonarjs?: boolean;
 }
 
 export interface OptionsTypeScriptParserOptions {
   /**
-   * Additional parser options for TypeScript.
-   */
+  Additional parser options for TypeScript.
+  */
   parserOptions?: Partial<ParserOptions>;
 
   /**
-   * Glob patterns for files that should be type aware.
-   * @default ['**\/*.{ts,tsx}']
-   */
+  Glob patterns for files that should be type aware.
+  @default ['**\/*.{ts,tsx}']
+  */
   filesTypeAware?: string[];
   /**
-   * Glob patterns for files that should not be type aware.
-   * @default ['**\/*.md\/**', '**\/*.astro/*.ts']
-   */
+  Glob patterns for files that should not be type aware.
+  @default ['**\/*.md\/**']
+  */
   ignoresTypeAware?: string[];
 }
 
 export interface OptionsTypeScriptWithTypes {
   /**
-   * When this options is provided, type aware rules will be enabled.
-   * @see https://typescript-eslint.io/linting/typed-linting/
-   */
+  When this options is provided, type aware rules will be enabled.
+  @see https://typescript-eslint.io/linting/typed-linting/
+  */
   tsconfigPath?: string;
 
   /**
-   * Override type aware rules.
-   */
+  Override type aware rules.
+  */
   overridesTypeAware?: TypedFlatConfigItem["rules"];
 }
 
@@ -143,10 +179,10 @@ export interface OptionsOverrides {
 
 export interface OptionsProjectType {
   /**
-   * Type of the project. `lib` will enable more strict rules for libraries.
-   *
-   * @default 'app'
-   */
+  Type of the project. `lib` will enable more strict rules for libraries.
+
+  @default 'app'
+  */
   type?: "app" | "lib";
 }
 
@@ -156,118 +192,133 @@ export interface OptionsIsInEditor {
 
 export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType {
   /**
-   * Enable gitignore support.
-   *
-   * Passing an object to configure the options.
-   *
-   * @see https://github.com/antfu/eslint-config-flat-gitignore
-   * @default true
-   */
+  Enable gitignore support.
+
+  Passing an object to configure the options.
+
+  @see https://github.com/antfu/eslint-config-flat-gitignore
+  @default true
+  */
   gitignore?: boolean | FlatGitignoreOptions;
 
   /**
-   * Extend the global ignores.
-   *
-   * Passing an array to extends the ignores.
-   * Passing a function to modify the default ignores.
-   *
-   * @default []
-   */
+  Extend the global ignores.
+
+  Passing an array to extends the ignores.
+  Passing a function to modify the default ignores.
+
+  @default []
+  */
   ignores?: string[] | ((originals: string[]) => string[]);
 
   /**
-   * Core rules. Can't be disabled.
-   */
+  Core rules. Can't be disabled.
+  */
   javascript?: OptionsOverrides;
 
   /**
-   * Options for eslint-plugin-import-lite.
-   *
-   * @default true
-   */
+  Options for eslint-plugin-import-lite.
+
+  @default true
+  */
   imports?: boolean | OptionsOverrides;
 
   /**
-   * Enable Node.js rules
-   *
-   * @default true
-   */
+  Enable Node.js rules
+
+  @default true
+  */
   node?: boolean;
 
   /**
-   * Options for [@e18e/eslint-plugin](https://github.com/e18e/eslint-plugin)
-   *
-   * @default true
-   */
+  Options for [@e18e/eslint-plugin](https://github.com/e18e/eslint-plugin)
+
+  @default true
+  */
   e18e?: boolean | OptionsE18e;
 
   /**
-   * Enable TypeScript support.
-   *
-   * Passing an object to enable TypeScript Language Server support.
-   *
-   * Requires installing:
-   * - `typescript-eslint`
-   *
-   * @default auto-detect based on the dependencies
-   */
+  Enable TypeScript support.
+
+  Passing an object to enable TypeScript Language Server support.
+
+  Requires installing:
+  - `typescript-eslint`
+
+  @default auto-detect based on the dependencies
+  */
   typescript?: boolean | OptionsTypescript;
 
   /**
-   * Enable test support.
-   *
-   * @default true
-   */
+  Enable test support.
+
+  @default true
+  */
   test?: boolean | OptionsOverrides;
 
   /**
-   * Enable Vue support.
-   *
-   * Requires installing:
-   * - `eslint-plugin-vue`
-   *
-   * @default auto-detect based on the dependencies
-   */
+  Enable Vue support.
+
+  Requires installing:
+  - `eslint-plugin-vue`
+
+  @default auto-detect based on the dependencies
+  */
   vue?: boolean | OptionsVue;
 
   /**
-   * Enable JSONC support.
-   *
-   * @default true
-   */
+  Enable JSONC support.
+
+  @default true
+  */
   jsonc?: boolean | OptionsFiles;
 
   /**
-   * Enable regexp rules.
-   *
-   * @see https://ota-meshi.github.io/eslint-plugin-regexp/
-   * @default true
-   */
+  Enable anti-slop rules, guarding against low-value code patterns
+  commonly introduced by AI agents.
+
+  Enables [eslint-plugin-slop](https://github.com/antfu/eslint-plugin-slop) and
+  a curated subset of [eslint-plugin-sonarjs](https://github.com/SonarSource/SonarJS).
+
+  We also recommend pairing this with [jscpd](https://github.com/kucherenko/jscpd)
+  and [knip](https://github.com/webpro-nl/knip) to catch copy-paste duplication
+  and unused files, dependencies, and exports.
+
+  @default false
+  */
+  antislop?: boolean | OptionsAntislop;
+
+  /**
+  Enable regexp rules.
+
+  @see https://ota-meshi.github.io/eslint-plugin-regexp/
+  @default true
+  */
   regexp?: boolean | OptionsOverrides;
 
   /**
-   * Enable unocss rules.
-   *
-   * Requires installing:
-   * - `@unocss/eslint-plugin`
-   *
-   * @default auto-detect based on the dependencies
-   */
+  Enable unocss rules.
+
+  Requires installing:
+  - `@unocss/eslint-plugin`
+
+  @default auto-detect based on the dependencies
+  */
   unocss?: boolean;
 
   /**
-   * Use prettier to format files.
-   *
-   * When set to `true`, it will enable all formatters.
-   *
-   * @default true
-   */
+  Use prettier to format files.
+
+  When set to `true`, it will enable all formatters.
+
+  @default true
+  */
   formatters?: boolean | OptionsFormatters;
 
   /**
-   * Control to disable some rules in editors.
-   * @default auto-detect based on the process.env
-   */
+  Control to disable some rules in editors.
+  @default auto-detect based on the process.env
+  */
   isInEditor?: boolean;
 }
 

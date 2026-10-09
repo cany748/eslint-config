@@ -3,6 +3,7 @@ import { FlatConfigComposer } from "eslint-flat-config-utils";
 import type { Linter } from "eslint";
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from "./types";
 import {
+  antislop,
   comments,
   disables,
   e18e,
@@ -36,20 +37,22 @@ const flatConfigProps = [
 const VuePackages = ["vue", "nuxt", "vitepress", "@slidev/cli"];
 
 /**
- * Construct an array of ESLint flat config items.
- *
- * @param {OptionsConfig & TypedFlatConfigItem} options
- *  The options for generating the ESLint configurations.
- * @param {Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>[]} userConfigs
- *  The user configurations to be merged with the generated configurations.
- * @returns {Promise<TypedFlatConfigItem[]>}
- *  The merged ESLint configurations.
- */
+Construct an array of ESLint flat config items.
+
+@param {OptionsConfig & TypedFlatConfigItem} options
+ The options for generating the ESLint configurations.
+@param {Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[]>[]} userConfigs
+ The user configurations to be merged with the generated configurations.
+@returns {Promise<TypedFlatConfigItem[]>}
+ The merged ESLint configurations.
+*/
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export const factoryConfig = function (
   options: OptionsConfig & Omit<TypedFlatConfigItem, "files" | "ignores"> = {},
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
+    antislop: enableAntislop = false,
     componentExts = [],
     formatters: enableFormatters = true,
     gitignore: enableGitignore = true,
@@ -117,9 +120,19 @@ export const factoryConfig = function (
   if (enableTypeScript) {
     configs.push(
       typescript({
-        ...(typeof enableTypeScript === "boolean" ? {} : enableTypeScript || {}),
+        ...(typeof enableTypeScript === "boolean" ? {} : enableTypeScript),
         componentExts,
         type: options.type,
+      }),
+    );
+  }
+
+  // Registered after the TypeScript config so its `ts/no-explicit-any` override takes effect
+  if (enableAntislop) {
+    configs.push(
+      antislop({
+        ...(typeof enableAntislop === "boolean" ? {} : enableAntislop),
+        typescript: !!enableTypeScript,
       }),
     );
   }
@@ -140,7 +153,7 @@ export const factoryConfig = function (
   if (enableVue) {
     configs.push(
       vue({
-        ...(typeof enableVue === "boolean" ? {} : enableVue || {}),
+        ...(typeof enableVue === "boolean" ? {} : enableVue),
         typescript: !!enableTypeScript,
       }),
     );

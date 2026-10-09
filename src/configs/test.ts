@@ -3,7 +3,7 @@ import type { OptionsFiles, OptionsIsInEditor, OptionsOverrides, TypedFlatConfig
 import { GLOB_TESTS } from "../globs";
 
 // Hold the reference so we don't redeclare the plugin on each call
-let _pluginTest: any;
+let _pluginTest: unknown;
 
 export async function test(options: OptionsFiles & OptionsIsInEditor & OptionsOverrides = {}): Promise<TypedFlatConfigItem[]> {
   const { files = GLOB_TESTS, isInEditor = false, overrides = {} } = options;
@@ -13,7 +13,7 @@ export async function test(options: OptionsFiles & OptionsIsInEditor & OptionsOv
     interopDefault(import("eslint-plugin-no-only-tests")),
   ] as const);
 
-  _pluginTest = _pluginTest || {
+  _pluginTest ||= {
     ...pluginVitest,
     rules: {
       ...pluginVitest.rules,

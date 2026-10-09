@@ -1,4 +1,4 @@
-import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
+import { GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   OptionsComponentExts,
   OptionsFiles,
@@ -23,7 +23,7 @@ export async function typescript(
   const files = options.files ?? [GLOB_TS, GLOB_TSX, ...componentExts.map((ext) => `**/*.${ext}`)];
 
   const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX];
-  const ignoresTypeAware = options.ignoresTypeAware ?? [`${GLOB_MARKDOWN}/**`, GLOB_ASTRO_TS];
+  const ignoresTypeAware = options.ignoresTypeAware ?? [`${GLOB_MARKDOWN}/**`];
   const tsconfigPath = options?.tsconfigPath;
   const isTypeAware = !!tsconfigPath;
 
@@ -50,7 +50,7 @@ export async function typescript(
                 tsconfigRootDir: process.cwd(),
               }
             : {}),
-          ...(parserOptions as any),
+          ...parserOptions,
         },
       },
       name: `typescript/${typeAware ? "type-aware-parser" : "parser"}`,
