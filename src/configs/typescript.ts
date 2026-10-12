@@ -1,4 +1,4 @@
-import { GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
+import { GLOB_JS, GLOB_JSX, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from "../globs";
 import type {
   OptionsComponentExts,
   OptionsFiles,
@@ -67,6 +67,13 @@ export async function typescript(
     },
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
     ...(isTypeAware ? [makeParser(false, files), makeParser(true, filesTypeAware, ignoresTypeAware)] : [makeParser(false, files)]),
+    {
+      // unused-imports/no-unused-vars switches to the typescript-eslint rule when it is installed,
+      // and that rule reports every usage as type-only unless the typescript-eslint scope manager is used
+      files: [GLOB_JS, GLOB_JSX],
+      languageOptions: { parser: parserTs },
+      name: "typescript/javascript-parser",
+    },
     {
       files,
       name: "typescript/rules",

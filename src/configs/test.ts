@@ -39,6 +39,8 @@ export async function test(options: OptionsFiles & OptionsIsInEditor & OptionsOv
         "no-unused-expressions": "off",
         "n/prefer-global/process": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
+        "unicorn/no-global-object-property-assignment": "off",
+        "e18e/prefer-static-regex": "off",
 
         ...overrides,
       },
