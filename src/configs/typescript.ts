@@ -142,7 +142,7 @@ export async function typescript(
                 ? ({
                     ...pluginTs.configs["recommended-type-checked-only"].rules,
 
-                    "@typescript-eslint/no-confusing-void-expression": "error",
+                    "@typescript-eslint/no-confusing-void-expression": ["error", { ignoreArrowShorthand: true }],
                     "@typescript-eslint/promise-function-async": "error",
 
                     "@typescript-eslint/restrict-template-expressions": "off",
